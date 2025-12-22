@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./pages/header/Header";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Signup from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
+import StudentForm from "./pages/students/StudentForm";
+import StudentList from "./pages/students/StudentList";
+import UpdateStudent from "./pages/students/UpdateStudent";
 
 function App() {
+  const location = useLocation();
+
+  // Header hide on login & signup
+  const hideHeader =
+    location.pathname === "/login" ||
+    location.pathname === "/signup";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!hideHeader && <Header />}
+
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/students/add" element={<StudentForm />} />
+        <Route path="/students/list" element={<StudentList />} />
+        <Route path="/students/update/:id" element={<UpdateStudent />} />
+      </Routes>
+    </>
   );
 }
 

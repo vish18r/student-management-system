@@ -1,0 +1,46 @@
+✅ Mandatory Files (Priority Order)
+1️⃣ public/index.html
+
+Main HTML file
+
+React app mounts here
+
+Without this → app will not load
+
+2️⃣ src/index.js
+
+Entry point of React
+
+Starts the application
+
+Without this → React will not start
+
+3️⃣ src/App.js
+
+Main component
+
+Handles routing & layout
+
+Without this → app crashes
+
+4️⃣ node_modules/
+
+Contains all dependencies
+
+Without this → app won’t compile
+
+🟡 Required Because They Are Used (Feature-based)
+
+pages/login/Login.js
+
+pages/signup/Signup.js
+
+pages/dashboard/Dashboard.js
+
+pages/students/*
+
+pages/header/Header.js
+
+services/api.js
+
+ i what leran each line line by explain i what learn wt is htink  give me proble wt is mean when shoud use all think i want proper expalin all code 

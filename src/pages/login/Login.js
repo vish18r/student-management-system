@@ -1,93 +1,89 @@
-import { useState } from "react";
+import { useState } from "react"; //Used to store and update data inside a component
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "axios";  //axios is a library to call backend APIs
 
 export default function Login() {
+
+  //STATE VARIABLES
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
+  const [form, setForm] = useState({ email: "", password: "" });
+  //form → stores form data
+  //setForm → updates form data
+  const [error, setError] = useState(""); //Stores error message Initially empty
+//It is a FUNCTION, but stored inside a variable.
+  const handleChange = (e) => //Event object (input change event)
+    setForm({ ...form, [e.target.name]: e.target.value });
+    //...spread operator Keeps old values
+//Input name (email or password)  e.target.value What user types
   const login = async () => {
+    //async → because API call takes time
     setError("");
-
-    if (!email || !password) {
-      setError("Email and Password are required");
-      return;
-    }
+//Clears old error before new login attemp
+    const { email, password } = form;  //Take email and password out of form object
+    if (!email || !password) // If any one condition is true, result is true
+      return setError("Email and Password are required");
 
     try {
-      const res = await axios.post(
+      //API CALL
+      const { data } = await axios.post(
         "http://localhost:8080/api/auth/login",
-        { email, password }
+        form
       );
-
-      // ✅ Save login data
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("email", res.data.email);
+//Saves token Used for authentication Sent in headers later
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("email", data.email);
       localStorage.setItem(
         "username",
-        res.data.firstName && res.data.firstName.trim()
-          ? res.data.firstName
-          : "User"
+        data.firstName?.trim() || "User"
       );
 
+      alert("Login successful ✅");
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      setError(
+        err.response?.data?.message || "Login failed. Server error."
+      );
     }
   };
+
+  const inputStyle =
+    "w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-[420px] bg-white p-8 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Login
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-        {/* Email */}
         <input
+          name="email"
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md
-                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={handleChange}
+          className={inputStyle}
         />
 
-        {/* Password */}
         <input
+          name="password"
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-md
-                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={handleChange}
+          className={inputStyle}
         />
 
-        {/* Error */}
-        {error && (
-          <p className="text-red-600 text-sm mb-3">
-            {error}
-          </p>
-        )}
+        {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
 
-        {/* Login Button */}
         <button
           onClick={login}
-          className="w-full bg-blue-600 text-white py-2 rounded-md
-                     hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
         >
           Login
         </button>
 
-        {/* Signup Link */}
         <p className="text-sm text-center mt-4">
           Don’t have an account?{" "}
           <span
-            className="text-blue-600 cursor-pointer hover:underline"
             onClick={() => navigate("/signup")}
+            className="text-blue-600 cursor-pointer hover:underline"
           >
             Sign up
           </span>

@@ -1,0 +1,94 @@
+/*
+===========================================================
+REACT HOOKS – COMPLETE MULTI-LINE COMMENT (BEGINNER FRIENDLY)
+===========================================================
+
+What is a Hook?
+---------------
+A Hook is a special function provided by React that allows
+function components to use React features such as state,
+lifecycle methods, side effects, and routing without using
+class components.
+
+-----------------------------------------------------------
+
+useState
+--------
+Definition:
+useState is a React Hook that allows a function component
+to store, manage, and update stateful data. When the state
+changes, React automatically re-renders the component.
+
+Used for:
+- Form inputs
+- Error messages
+- API response data
+- Toggle values (show / hide)
+
+Example:
+const [value, setValue] = useState(initialValue);
+
+-----------------------------------------------------------
+
+useEffect
+---------
+Definition:
+useEffect is a React Hook used to perform side effects in
+function components after rendering. Side effects include
+API calls, subscriptions, timers, and DOM manipulation.
+
+Used for:
+- Fetching data from backend
+- Running code when page loads
+- Running code when state or props change
+
+Syntax:
+useEffect(() => {
+  // side effect code
+}, [dependencies]);
+
+-----------------------------------------------------------
+
+useParams
+---------
+Definition:
+useParams is a React Router Hook that allows a component to
+access dynamic parameters from the current URL.
+
+Used for:
+- Getting ID from URL
+- Fetching specific record data
+
+Example:
+URL: /students/update/5
+const { id } = useParams(); // id = 5
+
+-----------------------------------------------------------
+
+useNavigate
+-----------
+Definition:
+useNavigate is a React Router Hook that enables programmatic
+navigation between routes in a single-page React application.
+
+Used for:
+- Redirect after login
+- Redirect after update or delete
+- Logout navigation
+
+Example:
+const navigate = useNavigate();
+navigate("/students/list");
+
+-----------------------------------------------------------
+
+IMPORTANT RULES OF HOOKS
+-----------------------
+1. Hooks must start with "use"
+2. Hooks must be called at the top level
+3. Hooks must not be used inside loops or conditions
+
+===========================================================
+END OF HOOKS COMMENT
+===========================================================
+*/
